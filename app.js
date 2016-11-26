@@ -1,9 +1,7 @@
 var SerialPort = require('serialport'),
-	// port = new SerialPort('/dev/ttyUSB0'),
+	port = new SerialPort('/dev/ttyUSB0'),
 	fs = require('fs'),
 	file = String(fs.readFileSync('./files/output.hpgl'));
-
-// console.log(file);
  
 port.on('open', function() {
   port.write(file, function(err) {
