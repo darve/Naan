@@ -1,6 +1,6 @@
 
 var SerialPort = require('serialport'),
-	port = new SerialPort('/dev/ttyUSB0'),
+	port = new SerialPort('/dev/ttyUSB0', { baudRate: 38400 }),
 	fs = require('fs'),
 	file = String(fs.readFileSync('./files/output.hpgl')),
 	interval;
