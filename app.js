@@ -9,7 +9,12 @@ file = file.split(';');
 
 function draw(v) {
 	port.write(v, function(err) {
-		console.log('err', err);
+		if (err) {
+			console.log('err', err);
+		} else {
+			'ok';
+		}
+		
 	});
 };
 
