@@ -53,6 +53,7 @@ port.on('open', function() {
 
 			// We have run out of data to send! Wahey!
 			clearInterval(interval);
+			process.exit();
 
 		}
 		
