@@ -1,12 +1,9 @@
 {
-  "name": "serial-test",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
+  "name": "Naan",
+  "version": "0.0.1",
+  "description": "Module for sending HPGL data to a plotter.",
+  "main": "app.js",
+  "author": "David Woollard <dave@darve.co.uk>",
   "license": "ISC",
   "dependencies": {
     "serialport": "^4.0.6"

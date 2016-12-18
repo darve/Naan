@@ -1,45 +1,56 @@
 
+/**
+ * Module for sending HPGL data to a plotter.
+ */
+
+'use strict';
+
 var SerialPort = require('serialport'),
 	port = new SerialPort('/dev/ttyUSB0', { baudRate: 38400 }),
 	fs = require('fs'),
-	file = String(fs.readFileSync('./files/output.hpgl')),
+	file = String(fs.readFileSync('./files/' + process.argv[2])).split(';'),
 	interval;
- 
-file = file.split(';');
 
-function draw(v) {
-	port.write(v, function(err) {
-		if (err) {
-			console.log('err', err);
-		} else {
-			'ok';
-		}
-		
+/**
+ * Send data to the plotter
+ */
+function send_data(v) {
+	port.write(v, function(err) {	
+		if (err) console.log('err', err);
+		return true;
 	});
 };
 
+/**
+ * Log out any errors.
+ */
+port.on('error', function(err) {
+
+  	console.log('Error: ', err.message);
+
+})
+
+/**
+ * Open a serial conenction to the plotter
+ */
 port.on('open', function() {
 
-interval = setInterval(function() {
-	
-	if ( file.length ) {
-		var temp = file.shift();
-		draw(temp);
-	} else {
-		clearInterval(interval);
-	}
-	
-}, 300);
+	interval = setInterval(function() {
+		
+		if ( file.length ) {
+			
+			// Pull the first element from the array, so we send 
+			// the instructions in order.
+			var temp = file.shift();
+			send_data(temp);
 
-//   port.write(file, function(err) {
-//     if (err) {
-//       return console.log('Error on write: ', err.message);
-//     }
-//     console.log('message written');
-//   });
+		} else {
+
+			// We have run out of data to send! Wahey!
+			clearInterval(interval);
+
+		}
+		
+	}, 300);
+
 });
- 
-// open errors will be emitted as an error event 
-port.on('error', function(err) {
-  console.log('Error: ', err.message);
-})
