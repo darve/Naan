@@ -5,6 +5,9 @@
   "main": "app.js",
   "author": "David Woollard <dave@darve.co.uk>",
   "license": "ISC",
+  "scripts": {
+  	"plot": "pstoedit -f plot-hpgl input/input.eps output/output.hpgl && hpgl-distiller -i output/output.hpgl -o output/output-distilled.hpgl && node app.js output-distilled.hpgl" 
+  },
   "dependencies": {
     "serialport": "^4.0.6"
   }

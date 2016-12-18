@@ -5,20 +5,25 @@
 
 'use strict';
 
-var SerialPort = require('serialport'),
-	port = new SerialPort('/dev/ttyUSB0', { baudRate: 38400 }),
-	fs = require('fs'),
-	file = String(fs.readFileSync('./files/' + process.argv[2])).split(';'),
+var 
+	SerialPort 	= require('serialport'),
+	port 		= new SerialPort('/dev/ttyUSB0', { baudRate: 38400 }),
+	fs 			= require('fs'),
+	file 		= String(fs.readFileSync('./output/' + process.argv[2])).split(';'),
 	interval;
 
 /**
  * Send data to the plotter
  */
 function send_data(v) {
+
 	port.write(v, function(err) {	
+
 		if (err) console.log('err', err);
 		return true;
+
 	});
+
 };
 
 /**
